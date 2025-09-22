@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Predictor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Predictor</h1>
+        <form id="predictForm">
+            <label>Ticker:</label>
+            <input type="text" id="ticker" name="ticker">
+
+            <label>Period:</label>
+            <input type="text" id="period" name="period" value="5y">
+
+            <label>Interval:</label>
+            <input type="text" id="interval" name="interval" value="1d">
+
+            <label>CSV Upload (optional):</label>
+            <input type="file" id="file" name="file">
+
+            <button type="submit">Predict</button>
+        </form>
+
+        <h2>Prediction:</h2>
+        <pre id="result"></pre>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
