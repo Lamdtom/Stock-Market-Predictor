@@ -30,8 +30,18 @@ def fetch(symbol='AAPL', period='5y', interval='1d'):
 
     # Download data
     df = yf.download(symbol, period=period, interval=interval, progress=False)
-    df.reset_index(inplace=True)
 
+    # Flatten MultiIndex columns if present
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = ['_'.join(filter(None, col)).strip() for col in df.columns.values]
+    # Rename columns
+    df = df.rename(columns={'Close_AAPL': 'Close', 
+                        'Open_AAPL': 'Open',
+                        'High_AAPL': 'High',
+                        'Low_AAPL': 'Low',
+                        'Volume_AAPL': 'Volume'})
+    df.reset_index(inplace=True)
+    
     # Save to CSV
     filepath = os.path.join(data_dir, f"{symbol}_raw.csv")
     df.to_csv(filepath, index=False)
@@ -39,4 +49,5 @@ def fetch(symbol='AAPL', period='5y', interval='1d'):
     return df
 
 if __name__ == '__main__':
-    fetch('AAPL')
+    df = fetch('AAPL')
+    print(df)
