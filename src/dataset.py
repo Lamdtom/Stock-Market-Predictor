@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import torch
 from torch.utils.data import Dataset
 import os
@@ -29,8 +30,9 @@ class StockPreprocessor:
         for i in range(self.lookback, len(features)):
             X.append(features[i-self.lookback:i])
             y.append(df['return'].iloc[i])
-        X = torch.tensor(X, dtype=torch.float32)
-        y = torch.tensor(y, dtype=torch.float32).unsqueeze(1)
+        
+        X = torch.tensor(np.array(X), dtype=torch.float32)
+        y = torch.tensor(np.array(y), dtype=torch.float32).unsqueeze(1)
 
         return X, y
 
